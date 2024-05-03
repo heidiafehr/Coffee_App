@@ -4,8 +4,6 @@ class BrewingState {}
 
 class BrewingLoading extends BrewingState {}
 
-class BrewingInitial extends BrewingState {}
-
 class BrewingLoaded extends BrewingState {
   final String imageUrl;
 

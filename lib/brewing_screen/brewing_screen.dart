@@ -15,9 +15,8 @@ class BrewingScreen extends StatelessWidget {
       body: Center(
         child: Column(children: [
           BlocBuilder<BrewingBloc, BrewingState>(builder: (context, state) {
-            if (state is BrewingInitial) {
-              return const Text('Press the button to get brewing!');
-              //return const CircularProgressIndicator();
+            if (state is BrewingLoading){
+              return CircularProgressIndicator();
             } else if (state is BrewingLoaded) {
               return Image.network(state.imageUrl);
             } else if (state is BrewingError) {
@@ -30,9 +29,7 @@ class BrewingScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Text('Brew Me Some Coffee'),
         onPressed: () => {
-          //brewingBloc.add(FetchImage())
-          BlocProvider.of<BrewingBloc>(context).add(LoadButtonPressed())
-          // context.read<BrewingBloc>().add(LoadButtonPressed())
+          BlocProvider.of<BrewingBloc>(context).add(LoadCoffeeImage())
         },
       ),
     );

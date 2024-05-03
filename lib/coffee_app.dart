@@ -26,7 +26,7 @@ class CoffeeApp extends StatelessWidget {
       // so the issue that I cannot pass in my BlocProvider context through routes FOR WHATEVER REASON
       // so I have to have this as my home page???? why???????
       home: BlocProvider(
-        create: (context) => BrewingBloc(),
+        create: (context) => BrewingBloc()..add(LoadCoffeeImage()),
         child: BrewingScreen(),
       ),
     );
