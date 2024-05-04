@@ -16,4 +16,5 @@ class RandomCoffeeImageRepo {
   Future<CoffeeImage> fetchCoffeeImage() async {
     return coffeeImage.fetchCoffeeImage();
   }
+
 }

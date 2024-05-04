@@ -5,9 +5,7 @@ import 'brewing_screen/bloc/brewing_bloc.dart';
 
 final getIt = GetIt.instance;
 
-void setupDependencies() {
+void setupDependencies() async {
   getIt.registerSingleton<RandomCoffeeImageRepo>(RandomCoffeeImageRepo());
   getIt.registerSingleton<BrewingBloc>(BrewingBloc());
 }
-
-

@@ -8,26 +8,21 @@ import 'menu_screen/menu_screen.dart';
 class CoffeeApp extends StatelessWidget {
   CoffeeApp({super.key});
 
-  final _brewingBloc = BrewingBloc();
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      //initialRoute: '/menu_screen',
-      // routes: {
-      //   '/menu_screen': (context) => const MenuScreen(),
-      //   '/brewing_screen': (context) => BlocProvider(
-      //         create: (context) => BrewingBloc(),
-      //         child: BrewingScreen(),
-      //       )
-      // },
-      // fucking bitch ass bitch ass fucking dumb ass bitch
-      // so the issue that I cannot pass in my BlocProvider context through routes FOR WHATEVER REASON
-      // so I have to have this as my home page???? why???????
-      home: BlocProvider(
-        create: (context) => BrewingBloc()..add(LoadCoffeeImage()),
-        child: BrewingScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => BrewingBloc()..add(LoadCoffeeImage())),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/menu_screen',
+        routes: {
+          '/menu_screen': (context) => const MenuScreen(),
+          '/brewing_screen': (context) => const BrewingScreen(),
+        },
+        home: const MenuScreen(),
       ),
     );
   }

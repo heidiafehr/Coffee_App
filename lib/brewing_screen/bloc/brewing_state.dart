@@ -15,3 +15,5 @@ class BrewingError extends BrewingState {
 
   BrewingError(this.errorMessage);
 }
+
+class CoffeeFavoriteAdded extends BrewingState {}
