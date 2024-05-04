@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/favorited_bloc.dart';
 
 class FavoritedCoffeeScreen extends StatelessWidget {
   const FavoritedCoffeeScreen({super.key});
@@ -10,7 +13,21 @@ class FavoritedCoffeeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Favorited Coffee'),
       ),
-      body: Text('Hey you made it to the favorites page!'),
+      body:
+          BlocBuilder<FavoritedBloc, FavoritedState>(builder: (context, state) {
+        if (state is FavoritedImagesLoading) {
+          return CircularProgressIndicator();
+        } else if (state is FavoritedImagesLoaded) {
+          final List<String> favoritedImageCatalog = state.favoritedImageCatalog;
+          return Text('hey stuff loads?');
+        } else if (state is EmptyFavoritedImagesLoaded) {
+          return Text('uh oh! you have no favorites!');
+        } else if (state is LoadFavoritedImagesError) {
+          return Text('Error: ${state.errorMessage}');
+        } else {
+          return Container();
+        }
+      }),
     );
   }
 }

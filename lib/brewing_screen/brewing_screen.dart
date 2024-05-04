@@ -51,7 +51,7 @@ class _BrewingScreenState extends State<BrewingScreen> {
           ElevatedButton(
             onPressed: () async {
               final currentState = brewingBloc.state;
-              if (currentState is BrewingLoaded) {
+              if (currentState is BrewingLoaded && mounted) {
                 BlocProvider.of<BrewingBloc>(context)
                     .add(AddCoffeeImageToFavorites(currentState.imageUrl));
                 setState(() {
@@ -59,9 +59,12 @@ class _BrewingScreenState extends State<BrewingScreen> {
                 });
                 await Future.delayed(const Duration(
                     seconds: 2)); // Delay to remove message or animation
-                setState(() {
-                  isFavorited = false;
-                });
+
+                if (mounted) {
+                  setState(() {
+                    isFavorited = false;
+                  });
+                }
               }
             },
             child: const Text('Favorite'),
