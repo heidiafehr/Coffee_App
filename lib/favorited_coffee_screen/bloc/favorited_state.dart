@@ -17,3 +17,15 @@ class LoadFavoritedImagesError extends FavoritedState {
 
   LoadFavoritedImagesError(this.errorMessage);
 }
+
+class UnfavoritedImageSuccess extends FavoritedState {
+  final String imageUrl;
+
+  UnfavoritedImageSuccess(this.imageUrl);
+}
+
+class UnfavoritedImageError extends FavoritedState {
+  final String errorMessage;
+
+  UnfavoritedImageError(this.errorMessage);
+}

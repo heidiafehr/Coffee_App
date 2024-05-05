@@ -7,17 +7,18 @@
   part 'brewing_state.dart';
 
   class BrewingBloc extends Bloc<BrewingEvent, BrewingState> {
-    List<String> favoriteImageUrls = [];
+    RandomCoffeeImageRepo api = getIt<RandomCoffeeImageRepo>();
+
     BrewingBloc() : super(BrewingLoading()){
       on<LoadCoffeeImage>(_fetchImage);
       on<AddCoffeeImageToFavorites>(_addCoffeeImageToFavorites);
     }
 
     Future<void> _fetchImage(LoadCoffeeImage event, Emitter<BrewingState> emit) async {
-      RandomCoffeeImageRepo api = getIt<RandomCoffeeImageRepo>();
       emit(BrewingLoading());
       try {
         final image = await api.fetchCoffeeImage();
+        List<String> favoriteImageUrls = await api.fetchFavoritedImageCatalog();
         final imageUrl = image.file;
 
         //check to make sure fetched URL is not in favorites
@@ -32,13 +33,8 @@
     }
 
     Future<void> _addCoffeeImageToFavorites(AddCoffeeImageToFavorites event, Emitter<BrewingState> emit) async {
-      final SharedPreferences prefs = getIt<SharedPreferences>();
-
       try {
-        if(!favoriteImageUrls.contains(event.imageUrl)) {
-          favoriteImageUrls.add(event.imageUrl);
-          await prefs.setStringList('favoriteImageUrls', favoriteImageUrls);
-        }
+        await api.addFavoritedImage(event.imageUrl);
       } catch (e) {
         emit(BrewingError('Failure to Add Image to Favorites: $e}'));
       }

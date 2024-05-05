@@ -59,7 +59,6 @@ class _BrewingScreenState extends State<BrewingScreen> {
                 });
                 await Future.delayed(const Duration(
                     seconds: 2)); // Delay to remove message or animation
-
                 if (mounted) {
                   setState(() {
                     isFavorited = false;
