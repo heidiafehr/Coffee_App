@@ -2,7 +2,6 @@ import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
 import 'package:coffee_app/favorited_coffee_screen/favorited_coffee_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../brewing_screen/bloc/brewing_bloc.dart';
 import '../brewing_screen/brewing_screen.dart';
@@ -20,36 +19,90 @@ class MenuScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            const Text(
-                'Get Brewing'
-            ),
-            ElevatedButton(
-              onPressed: () {
-                brewingBloc.add(LoadCoffeeImage());
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const BrewingScreen()
-                  )
-                );
-              },
-              child: const Text(
-                  'Get Brewing'
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                favoritedBloc.add(LoadFavoritedImages());
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const FavoritedCoffeeScreen()
+            Container(
+              height: MediaQuery.of(context).size.height / 1.5,
+              decoration: const BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(200),
+                      bottomRight: Radius.circular(200))),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 40, left: 20, right: 20),
+                        child: Text(
+                          'THE BREWING APP',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: Colors.white),
+                        )),
                   ),
-                );
-              },
-              child: const Text(
-                  'See Favorites'
+                  const Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 70),
+                      child: Icon(Icons.coffee, size: 250, color: Colors.white),
+                    ),
+                  )
+                ],
               ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                        'Brew up some new blends of coffee images. If you find an image you adore, simply tap the favorite button.',
+                        style: Theme.of(context).textTheme.bodyMedium),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          brewingBloc.add(LoadCoffeeImage());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const BrewingScreen()));
+                        },
+                        child: Text(
+                          'Get Brewing',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: Theme.of(context).elevatedButtonTheme.style,
+                        onPressed: () {
+                          favoritedBloc.add(LoadFavoritedImages());
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const FavoritedCoffeeScreen()),
+                          );
+                        },
+                        child: Text(
+                          'See Favorites',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

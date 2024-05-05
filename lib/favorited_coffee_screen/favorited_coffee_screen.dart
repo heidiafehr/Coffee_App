@@ -25,7 +25,8 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorited Coffee'),
+        title: Text('Favorited Coffee',
+            style: Theme.of(context).textTheme.titleMedium),
       ),
       body: BlocBuilder<FavoritedBloc, FavoritedState>(
         builder: (context, state) {

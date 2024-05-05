@@ -3,6 +3,7 @@ import 'package:coffee_app/favorited_coffee_screen/favorited_coffee_screen.dart'
 import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'brewing_screen/bloc/brewing_bloc.dart';
 import 'favorited_coffee_screen/bloc/favorited_bloc.dart';
@@ -16,9 +17,27 @@ class CoffeeApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: getIt<BrewingBloc>()..add(LoadCoffeeImage())),
-        BlocProvider.value(value: getIt<FavoritedBloc>()..add(LoadFavoritedImages())),
+        BlocProvider.value(
+            value: getIt<FavoritedBloc>()..add(LoadFavoritedImages())),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+          textTheme: TextTheme(
+            titleLarge: GoogleFonts.abrilFatface(
+              fontSize: 50,
+            ),
+            titleMedium: GoogleFonts.abrilFatface(
+              fontSize: 30,
+            ),
+            bodyMedium: GoogleFonts.courierPrime(
+              fontSize: 15
+            )
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black),
+          ),
+        ),
         debugShowCheckedModeBanner: false,
         initialRoute: '/menu_screen',
         routes: {
