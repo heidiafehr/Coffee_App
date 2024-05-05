@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coffee_app/widgets/coffee_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -63,9 +64,9 @@ class _BrewingScreenState extends State<BrewingScreen>
     final brewingBloc = getIt<BrewingBloc>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Brewing Page',
-            style: Theme.of(context).textTheme.titleMedium),
+      appBar: const CustomCoffeeAppBar(
+        title: 'Brewing Page',
+        addNavigateBack: true,
       ),
       body: Center(
         child: Column(

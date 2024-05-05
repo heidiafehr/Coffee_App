@@ -11,8 +11,6 @@ class EmptyFavoritedCatalog extends StatelessWidget {
   Widget build(BuildContext context) {
     final brewingBloc = getIt<BrewingBloc>();
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Padding(
           padding: EdgeInsets.all(20),

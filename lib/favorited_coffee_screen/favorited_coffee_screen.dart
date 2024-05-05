@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../widgets/coffee_appbar.dart';
 import 'bloc/favorited_bloc.dart';
 
 class FavoritedCoffeeScreen extends StatefulWidget {
@@ -25,9 +26,9 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Favorited Coffee',
-            style: Theme.of(context).textTheme.titleMedium),
+      appBar: const CustomCoffeeAppBar(
+        title: 'Favorited Coffee',
+        addNavigateBack: true,
       ),
       body: BlocBuilder<FavoritedBloc, FavoritedState>(
         builder: (context, state) {
