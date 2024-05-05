@@ -1,4 +1,5 @@
 import 'package:coffee_app/favorited_coffee_screen/widgets/display_favorited_images_catalog.dart';
+import 'package:coffee_app/favorited_coffee_screen/widgets/empty_favorited_catolog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,7 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
             return DisplayFavoritedImagesCatalog(
                 imageCatalog: displayedImageUrls);
           } else if (state is EmptyFavoritedImagesLoaded) {
-            return const Text('uh oh! you have no favorites!');
+            return const EmptyFavoritedCatalog();
           } else if (state is LoadFavoritedImagesError) {
             return Text('Error: ${state.errorMessage}');
           } else if (state is UnfavoritedImageSuccess) {
