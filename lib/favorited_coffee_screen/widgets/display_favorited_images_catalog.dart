@@ -37,6 +37,7 @@ class DisplayFavoritedImagesCatalog extends StatelessWidget {
             right: 1,
             child: IconButton(
               icon: const Icon(Icons.favorite),
+              color: Colors.red,
               onPressed: () {
                 favoritedBloc.add(UnfavoriteImage(imageUrl));
               },
