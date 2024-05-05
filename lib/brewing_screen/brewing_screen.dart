@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../service_locator.dart';
 import 'bloc/brewing_bloc.dart';
 
 class BrewingScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _BrewingScreenState extends State<BrewingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final brewingBloc = BlocProvider.of<BrewingBloc>(context);
+    final brewingBloc = getIt<BrewingBloc>();
 
     return Scaffold(
       appBar: AppBar(
@@ -35,8 +36,7 @@ class _BrewingScreenState extends State<BrewingScreen> {
                       const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
-                if (isFavorited)
-                  const Text('Added to Favorites!'),
+                if (isFavorited) const Text('Added to Favorites!'),
               ]);
             } else if (state is BrewingError) {
               return Text('Error:; ${state.errorMessage}');
@@ -44,15 +44,14 @@ class _BrewingScreenState extends State<BrewingScreen> {
             return Container();
           }),
           ElevatedButton(
-            onPressed: () =>
-                BlocProvider.of<BrewingBloc>(context).add(LoadCoffeeImage()),
+            onPressed: () => brewingBloc.add(LoadCoffeeImage()),
             child: const Text('Brew Me Some Coffee'),
           ),
           ElevatedButton(
             onPressed: () async {
               final currentState = brewingBloc.state;
               if (currentState is BrewingLoaded && mounted) {
-                BlocProvider.of<BrewingBloc>(context)
+                brewingBloc
                     .add(AddCoffeeImageToFavorites(currentState.imageUrl));
                 setState(() {
                   isFavorited = true;

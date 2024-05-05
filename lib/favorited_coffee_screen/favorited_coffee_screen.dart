@@ -5,8 +5,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/favorited_bloc.dart';
 
-class FavoritedCoffeeScreen extends StatelessWidget {
+class FavoritedCoffeeScreen extends StatefulWidget {
   const FavoritedCoffeeScreen({super.key});
+
+  @override
+  _FavoritedCoffeeScreenState createState() => _FavoritedCoffeeScreenState();
+}
+
+class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
+  late List<String> displayedImageUrls = [];
+
+  @override
+  void initState() {
+    super.initState();
+    displayedImageUrls = [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +27,27 @@ class FavoritedCoffeeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Favorited Coffee'),
       ),
-      body:
-          BlocBuilder<FavoritedBloc, FavoritedState>(builder: (context, state) {
-        if (state is FavoritedImagesLoading) {
-          return const CircularProgressIndicator();
-        } else if (state is FavoritedImagesLoaded) {
-          return DisplayFavoritedImagesCatalog(
-              favoriteImageUrls: state.favoritedImageCatalog);
-        } else if (state is EmptyFavoritedImagesLoaded) {
-          return const Text('uh oh! you have no favorites!');
-        } else if (state is LoadFavoritedImagesError) {
-          return Text('Error: ${state.errorMessage}');
-        } else {
-          return Container();
-        }
-      }),
+      body: BlocBuilder<FavoritedBloc, FavoritedState>(
+        builder: (context, state) {
+          if (state is FavoritedImagesLoading) {
+            return const CircularProgressIndicator();
+          } else if (state is FavoritedImagesLoaded) {
+            displayedImageUrls = state.favoritedImageCatalog;
+            return DisplayFavoritedImagesCatalog(
+                imageCatalog: displayedImageUrls);
+          } else if (state is EmptyFavoritedImagesLoaded) {
+            return const Text('uh oh! you have no favorites!');
+          } else if (state is LoadFavoritedImagesError) {
+            return Text('Error: ${state.errorMessage}');
+          } else if (state is UnfavoritedImageSuccess) {
+            displayedImageUrls.remove(state.imageUrl);
+            return DisplayFavoritedImagesCatalog(
+                imageCatalog: displayedImageUrls);
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }

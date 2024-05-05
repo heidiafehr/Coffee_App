@@ -1,5 +1,6 @@
 import 'package:coffee_app/brewing_screen/brewing_screen.dart';
 import 'package:coffee_app/favorited_coffee_screen/favorited_coffee_screen.dart';
+import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,10 +15,8 @@ class CoffeeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => BrewingBloc()..add(LoadCoffeeImage())),
-        BlocProvider(
-            create: (context) => FavoritedBloc()..add(LoadFavoritedImages())),
+        BlocProvider.value(value: getIt<BrewingBloc>()..add(LoadCoffeeImage())),
+        BlocProvider.value(value: getIt<FavoritedBloc>()..add(LoadFavoritedImages())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

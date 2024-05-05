@@ -6,12 +6,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../brewing_screen/bloc/brewing_bloc.dart';
 import '../brewing_screen/brewing_screen.dart';
+import '../service_locator.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final favoritedBloc = getIt<FavoritedBloc>();
+    final brewingBloc = getIt<BrewingBloc>();
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -21,7 +25,7 @@ class MenuScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                BlocProvider.of<BrewingBloc>(context).add(LoadCoffeeImage());
+                brewingBloc.add(LoadCoffeeImage());
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -35,7 +39,7 @@ class MenuScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                BlocProvider.of<FavoritedBloc>(context).add(LoadFavoritedImages());
+                favoritedBloc.add(LoadFavoritedImages());
                 Navigator.push(
                   context,
                   MaterialPageRoute(
