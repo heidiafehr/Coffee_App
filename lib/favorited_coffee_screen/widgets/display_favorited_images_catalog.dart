@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
+import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
-import '../../service_locator.dart';
-import '../bloc/favorited_bloc.dart';
 
 class DisplayFavoritedImagesCatalog extends StatelessWidget {
-  final List<String> imageCatalog;
 
   const DisplayFavoritedImagesCatalog({required this.imageCatalog, super.key});
+  final List<String> imageCatalog;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class DisplayFavoritedImagesCatalog extends StatelessWidget {
 
         return Stack(children: [
           AspectRatio(
-            aspectRatio: 1.0,
+            aspectRatio: 1,
             child: CachedNetworkImage(
               imageUrl: imageCatalog[index],
               placeholder: (context, url) => const CircularProgressIndicator(),
@@ -43,7 +43,7 @@ class DisplayFavoritedImagesCatalog extends StatelessWidget {
               },
             ),
           ),
-        ]);
+        ],);
       },
     );
   }

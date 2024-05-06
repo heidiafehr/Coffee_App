@@ -1,11 +1,9 @@
+import 'package:coffee_app/brewing_screen/bloc/brewing_bloc.dart';
+import 'package:coffee_app/brewing_screen/brewing_screen.dart';
 import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
 import 'package:coffee_app/favorited_coffee_screen/favorited_coffee_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
-
-import '../brewing_screen/bloc/brewing_bloc.dart';
-import '../brewing_screen/brewing_screen.dart';
-import '../service_locator.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -25,7 +23,7 @@ class MenuScreen extends StatelessWidget {
                   color: Colors.black,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(200),
-                      bottomRight: Radius.circular(200))),
+                      bottomRight: Radius.circular(200),),),
               child: Stack(
                 children: [
                   Align(
@@ -39,7 +37,7 @@ class MenuScreen extends StatelessWidget {
                               .textTheme
                               .titleLarge!
                               .copyWith(color: Colors.white),
-                        )),
+                        ),),
                   ),
                   const Align(
                     alignment: Alignment.bottomCenter,
@@ -47,7 +45,7 @@ class MenuScreen extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 70),
                       child: Icon(Icons.coffee, size: 250, color: Colors.white),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -57,8 +55,9 @@ class MenuScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Text(
+                        // ignore: lines_longer_than_80_chars
                         'Brew up some new blends of coffee images. If you find an image you adore, simply tap the favorite button.',
-                        style: Theme.of(context).textTheme.bodyMedium),
+                        style: Theme.of(context).textTheme.bodyMedium,),
                   ),
                 ),
                 Expanded(
@@ -70,7 +69,8 @@ class MenuScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const BrewingScreen()));
+                                  // ignore: lines_longer_than_80_chars
+                                  builder: (context) => const BrewingScreen(),),);
                         },
                         child: Text(
                           'Get Brewing',
@@ -88,7 +88,7 @@ class MenuScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const FavoritedCoffeeScreen()),
+                                    const FavoritedCoffeeScreen(),),
                           );
                         },
                         child: Text(

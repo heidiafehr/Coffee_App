@@ -1,11 +1,9 @@
+import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
 import 'package:coffee_app/favorited_coffee_screen/widgets/display_favorited_images_catalog.dart';
 import 'package:coffee_app/favorited_coffee_screen/widgets/empty_favorited_catolog.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:coffee_app/widgets/coffee_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../widgets/coffee_appbar.dart';
-import 'bloc/favorited_bloc.dart';
 
 class FavoritedCoffeeScreen extends StatefulWidget {
   const FavoritedCoffeeScreen({super.key});
@@ -28,7 +26,6 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
     return Scaffold(
       appBar: const CustomCoffeeAppBar(
         title: 'Favorited Coffee',
-        addNavigateBack: true,
       ),
       body: BlocBuilder<FavoritedBloc, FavoritedState>(
         builder: (context, state) {
@@ -37,7 +34,7 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
           } else if (state is FavoritedImagesLoaded) {
             displayedImageUrls = state.favoritedImageCatalog;
             return DisplayFavoritedImagesCatalog(
-                imageCatalog: displayedImageUrls);
+                imageCatalog: displayedImageUrls,);
           } else if (state is EmptyFavoritedImagesLoaded) {
             return const EmptyFavoritedCatalog();
           } else if (state is LoadFavoritedImagesError) {
@@ -45,9 +42,9 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
           } else if (state is UnfavoritedImageSuccess) {
             displayedImageUrls.remove(state.imageUrl);
             return DisplayFavoritedImagesCatalog(
-                imageCatalog: displayedImageUrls);
+                imageCatalog: displayedImageUrls,);
           } else {
-            return Container();
+            return const SizedBox.shrink();
           }
         },
       ),

@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coffee_app/brewing_screen/bloc/brewing_bloc.dart';
+import 'package:coffee_app/service_locator.dart';
 import 'package:coffee_app/widgets/coffee_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../service_locator.dart';
-import 'bloc/brewing_bloc.dart';
 
 class BrewingScreen extends StatefulWidget {
   const BrewingScreen({super.key});
@@ -66,7 +65,6 @@ class _BrewingScreenState extends State<BrewingScreen>
     return Scaffold(
       appBar: const CustomCoffeeAppBar(
         title: 'Brewing Page',
-        addNavigateBack: true,
       ),
       body: Center(
         child: Column(
@@ -111,7 +109,7 @@ class _BrewingScreenState extends State<BrewingScreen>
                   } else if (state is BrewingError) {
                     return Text('Error:; ${state.errorMessage}');
                   }
-                  return Container();
+                  return const SizedBox.shrink();
                 },
               ),
             ),
@@ -134,19 +132,18 @@ class _BrewingScreenState extends State<BrewingScreen>
                     final currentState = brewingBloc.state;
                     if (currentState is BrewingLoaded && mounted) {
                       brewingBloc.add(
-                          AddCoffeeImageToFavorites(currentState.imageUrl));
+                          AddCoffeeImageToFavorites(currentState.imageUrl),);
                       setState(
                         () {
                           isFavorited = true;
                         },
                       );
-                      _controller.forward(from: 0);
-                      await Future.delayed(const Duration(seconds: 2));
-                      if (mounted) {
+                      await _controller.forward(from: 0);
+                      await Future.delayed(const Duration(seconds: 2), () {
                         setState(() {
                           isFavorited = false;
                         });
-                      }
+                      });
                     }
                   },
                   child: const Icon(

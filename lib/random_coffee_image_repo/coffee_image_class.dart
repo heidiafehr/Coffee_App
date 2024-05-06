@@ -1,5 +1,4 @@
 class CoffeeImage {
-  final String file;
 
   CoffeeImage({
     required this.file,
@@ -7,7 +6,8 @@ class CoffeeImage {
 
   factory CoffeeImage.fromRestJson(Map<String, dynamic> json) {
     return CoffeeImage(
-      file: json['file']
-    );
+        // TODO
+        file: json['file'].toString(),);
   }
+  final String file;
 }

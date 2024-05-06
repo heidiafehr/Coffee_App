@@ -1,28 +1,29 @@
+import 'package:coffee_app/random_coffee_image_repo/coffee_image_class.dart';
 import 'package:coffee_app/random_coffee_image_repo/rest_instance_call.dart';
+import 'package:coffee_app/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../service_locator.dart';
-import 'coffee_image_class.dart';
-
 class RandomCoffeeImageRepo {
-  final coffeeImage = RestInstCall();
-
-  RandomCoffeeImageRepo._internal();
-
-  static final RandomCoffeeImageRepo _singleton = RandomCoffeeImageRepo._internal();
 
   factory RandomCoffeeImageRepo() {
     return _singleton;
   }
+
+  RandomCoffeeImageRepo._internal();
+  final coffeeImage = RestInstCall();
+
+  static final RandomCoffeeImageRepo _singleton =
+      RandomCoffeeImageRepo._internal();
 
   Future<CoffeeImage> fetchCoffeeImage() async {
     return coffeeImage.fetchCoffeeImage();
   }
 
   Future<List<String>> fetchFavoritedImageCatalog() async {
-    final SharedPreferences prefs = getIt<SharedPreferences>();
+    final prefs = getIt<SharedPreferences>();
     try {
-      List<String>? favoriteImageCatalog = prefs.getStringList('favoriteImageUrls');
+      final favoriteImageCatalog =
+          prefs.getStringList('favoriteImageUrls');
 
       if (favoriteImageCatalog != null && favoriteImageCatalog.isNotEmpty) {
         return favoriteImageCatalog;
@@ -35,30 +36,30 @@ class RandomCoffeeImageRepo {
   }
 
   Future<void> addFavoritedImage(String imageUrl) async {
-    final SharedPreferences prefs = getIt<SharedPreferences>();
+    final prefs = getIt<SharedPreferences>();
 
-    List<String> favoriteImageCatalog = await fetchFavoritedImageCatalog();
+    final favoriteImageCatalog = await fetchFavoritedImageCatalog();
 
     try {
-      if(!favoriteImageCatalog.contains(imageUrl)) {
+      if (!favoriteImageCatalog.contains(imageUrl)) {
         favoriteImageCatalog.add(imageUrl);
         await prefs.setStringList('favoriteImageUrls', favoriteImageCatalog);
       }
-    } catch(e) {
+    } catch (e) {
       throw Exception('Failure to Add Image to Favorites: $e}');
     }
   }
 
   Future<void> removeFavoritedImage(String imageUrl) async {
-    final SharedPreferences prefs = getIt<SharedPreferences>();
+    final prefs = getIt<SharedPreferences>();
 
-    List<String> favoriteImageCatalog = await fetchFavoritedImageCatalog();
+    final favoriteImageCatalog = await fetchFavoritedImageCatalog();
 
-    if(favoriteImageCatalog.isEmpty) {
+    if (favoriteImageCatalog.isEmpty) {
       throw Exception('Empty favorited list');
     }
 
-    if(!favoriteImageCatalog.contains(imageUrl)) {
+    if (!favoriteImageCatalog.contains(imageUrl)) {
       throw Exception('Image not found in favorited list');
     }
 

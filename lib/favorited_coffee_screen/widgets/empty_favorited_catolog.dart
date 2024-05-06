@@ -1,8 +1,7 @@
+import 'package:coffee_app/brewing_screen/bloc/brewing_bloc.dart';
+import 'package:coffee_app/brewing_screen/brewing_screen.dart';
+import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
-
-import '../../brewing_screen/bloc/brewing_bloc.dart';
-import '../../brewing_screen/brewing_screen.dart';
-import '../../service_locator.dart';
 
 class EmptyFavoritedCatalog extends StatelessWidget {
   const EmptyFavoritedCatalog({super.key});
@@ -15,7 +14,10 @@ class EmptyFavoritedCatalog extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.all(20),
           child: Text(
-            'Uh oh! Looks like you have no favorites. Would you like to add some?',
+            '''
+Uh oh! Looks like you have no favorites. 
+            \nWould you like to add some?
+            ''',
             textAlign: TextAlign.center,
           ),
         ),
@@ -23,9 +25,9 @@ class EmptyFavoritedCatalog extends StatelessWidget {
           onPressed: () {
             brewingBloc.add(LoadCoffeeImage());
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const BrewingScreen()));
+              context,
+              MaterialPageRoute(builder: (context) => const BrewingScreen()),
+            );
           },
           child: Text(
             'Get Brewing',

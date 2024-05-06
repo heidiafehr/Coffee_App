@@ -5,27 +5,27 @@ class FavoritedState {}
 class FavoritedImagesLoading extends FavoritedState {}
 
 class FavoritedImagesLoaded extends FavoritedState {
-  final List<String> favoritedImageCatalog;
 
   FavoritedImagesLoaded(this.favoritedImageCatalog);
+  final List<String> favoritedImageCatalog;
 }
 
 class EmptyFavoritedImagesLoaded extends FavoritedState {}
 
 class LoadFavoritedImagesError extends FavoritedState {
-  final String errorMessage;
 
   LoadFavoritedImagesError(this.errorMessage);
+  final String errorMessage;
 }
 
 class UnfavoritedImageSuccess extends FavoritedState {
-  final String imageUrl;
 
   UnfavoritedImageSuccess(this.imageUrl);
+  final String imageUrl;
 }
 
 class UnfavoritedImageError extends FavoritedState {
-  final String errorMessage;
 
   UnfavoritedImageError(this.errorMessage);
+  final String errorMessage;
 }

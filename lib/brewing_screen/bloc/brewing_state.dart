@@ -5,15 +5,15 @@ class BrewingState {}
 class BrewingLoading extends BrewingState {}
 
 class BrewingLoaded extends BrewingState {
-  final String imageUrl;
 
   BrewingLoaded(this.imageUrl);
+  final String imageUrl;
 }
 
 class BrewingError extends BrewingState {
-  final String errorMessage;
 
   BrewingError(this.errorMessage);
+  final String errorMessage;
 }
 
 class CoffeeFavoriteAdded extends BrewingState {}
