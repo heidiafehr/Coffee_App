@@ -31,17 +31,11 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
         builder: (context, state) {
           if (state is FavoritedImagesLoading) {
             return const Center(child: CircularProgressIndicator());
+          } else if (state is FavoritedImagesLoaded &&
+              state.favoritedImageCatalog.isEmpty) {
+            return const EmptyFavoritedCatalog();
           } else if (state is FavoritedImagesLoaded) {
             displayedImageUrls = state.favoritedImageCatalog;
-            return DisplayFavoritedImagesCatalog(
-              imageCatalog: displayedImageUrls,
-            );
-          } else if (state is EmptyFavoritedImagesLoaded) {
-            return const EmptyFavoritedCatalog();
-          } else if (state is LoadFavoritedImagesError) {
-            return Text('Error: ${state.errorMessage}');
-          } else if (state is UnfavoritedImageSuccess) {
-            displayedImageUrls.remove(state.imageUrl);
             return DisplayFavoritedImagesCatalog(
               imageCatalog: displayedImageUrls,
             );

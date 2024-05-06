@@ -21,11 +21,7 @@ class FavoritedBloc extends Bloc<FavoritedEvent, FavoritedState> {
     try {
       final favoritedImageCatalog =
           await api.fetchFavoritedImageCatalog();
-      if (favoritedImageCatalog.isEmpty) {
-        emit(EmptyFavoritedImagesLoaded());
-      } else {
         emit(FavoritedImagesLoaded(favoritedImageCatalog));
-      }
     } catch (e) {
       emit(LoadFavoritedImagesError(e.toString()));
     }
@@ -37,14 +33,9 @@ class FavoritedBloc extends Bloc<FavoritedEvent, FavoritedState> {
       await api.removeFavoritedImage(event.imageUrl);
       final favoritedImageCatalog =
           await api.fetchFavoritedImageCatalog();
-
-      if (favoritedImageCatalog.isEmpty) {
-        emit(EmptyFavoritedImagesLoaded());
-      } else {
-        emit(UnfavoritedImageSuccess(event.imageUrl));
-      }
+      emit(FavoritedImagesLoaded(favoritedImageCatalog));
     } catch (e) {
-      emit(UnfavoritedImageError(e.toString()));
+      emit(LoadFavoritedImagesError(e.toString()));
     }
   }
 }
