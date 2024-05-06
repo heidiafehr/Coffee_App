@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:coffee_app/random_coffee_image_repo/coffee_image_class.dart';
 import 'package:http/http.dart' as http;
 
-class RestInstCall {
+class CoffeeApi {
   Future<CoffeeImage> fetchCoffeeImage() async {
     try {
       final response = await http

@@ -15,7 +15,6 @@ class CoffeeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // BlocProvider(create: (_) => BrewingBloc()..add(LoadCoffeeImage())),
         BlocProvider(
           create: (_) => FavoritedBloc()..add(LoadFavoritedImages()),
         ),

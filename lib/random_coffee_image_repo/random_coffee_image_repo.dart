@@ -4,21 +4,6 @@ import 'package:coffee_app/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RandomCoffeeImageRepo {
-
-  factory RandomCoffeeImageRepo() {
-    return _singleton;
-  }
-
-  RandomCoffeeImageRepo._internal();
-  final coffeeImage = RestInstCall();
-
-  static final RandomCoffeeImageRepo _singleton =
-      RandomCoffeeImageRepo._internal();
-
-  Future<CoffeeImage> fetchCoffeeImage() async {
-    return coffeeImage.fetchCoffeeImage();
-  }
-
   Future<List<String>> fetchFavoritedImageCatalog() async {
     final prefs = getIt<SharedPreferences>();
     try {
