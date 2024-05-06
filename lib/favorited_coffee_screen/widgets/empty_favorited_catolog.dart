@@ -9,7 +9,6 @@ class EmptyFavoritedCatalog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brewingBloc = context.read<BrewingBloc>();
     return Column(
       children: [
         const Padding(
@@ -24,12 +23,9 @@ Uh oh! Looks like you have no favorites.
         ),
         ElevatedButton(
           onPressed: () {
-            brewingBloc.add(LoadCoffeeImage());
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute<BrewingScreen>(
-                builder: (context) => const BrewingScreen(),
-              ),
+              '/brewing_screen',
             );
           },
           child: Text(

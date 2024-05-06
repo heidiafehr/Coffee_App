@@ -12,7 +12,7 @@ class CustomCoffeeAppBar extends StatelessWidget
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.popUntil(context, ModalRoute.withName('/menu_screen'));
         },
         icon: const Icon(
           Icons.arrow_back,
@@ -29,19 +29,6 @@ class CustomCoffeeAppBar extends StatelessWidget
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute<MenuScreen>(
-                builder: (context) => const MenuScreen(),
-              ),
-            );
-          },
-        ),
-      ],
     );
   }
 

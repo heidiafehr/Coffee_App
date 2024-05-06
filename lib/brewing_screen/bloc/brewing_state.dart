@@ -1,6 +1,6 @@
 part of 'brewing_bloc.dart';
 
-class BrewingState extends Equatable {
+abstract class BrewingState extends Equatable {
   @override
   List<Object?> get props => [];
 }

@@ -19,7 +19,7 @@ class BrewingBloc extends Bloc<BrewingEvent, BrewingState> {
     LoadCoffeeImage event,
     Emitter<BrewingState> emit,
   ) async {
-    emit(BrewingLoading());
+    // emit(BrewingLoading());
     try {
       final image = await api.fetchCoffeeImage();
       final favoriteImageUrls = await api.fetchFavoritedImageCatalog();

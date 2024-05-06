@@ -1,6 +1,9 @@
 part of 'favorited_bloc.dart';
 
-class FavoritedState {}
+abstract class FavoritedState extends Equatable{
+  @override
+  List<Object?> get props => [];
+}
 
 class FavoritedImagesLoading extends FavoritedState {}
 
@@ -8,24 +11,17 @@ class FavoritedImagesLoaded extends FavoritedState {
 
   FavoritedImagesLoaded(this.favoritedImageCatalog);
   final List<String> favoritedImageCatalog;
+
+  @override
+  List<Object?> get props => [favoritedImageCatalog];
 }
 
-// class EmptyFavoritedImagesLoaded extends FavoritedState {}
-//
 class LoadFavoritedImagesError extends FavoritedState {
 
   LoadFavoritedImagesError(this.errorMessage);
   final String errorMessage;
+
+  @override
+  List<Object?> get props => [errorMessage];
 }
-//
-// class UnfavoritedImageSuccess extends FavoritedState {
-//
-//   UnfavoritedImageSuccess(this.imageUrl);
-//   final String imageUrl;
-// }
-//
-// class UnfavoritedImageError extends FavoritedState {
-//
-//   UnfavoritedImageError(this.errorMessage);
-//   final String errorMessage;
-// }
+

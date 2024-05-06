@@ -15,8 +15,9 @@ class CoffeeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => BrewingBloc()..add(LoadCoffeeImage())),
-        BlocProvider(create: (_) => FavoritedBloc()..add(LoadFavoritedImages()),
+        // BlocProvider(create: (_) => BrewingBloc()..add(LoadCoffeeImage())),
+        BlocProvider(
+          create: (_) => FavoritedBloc()..add(LoadFavoritedImages()),
         ),
       ],
       child: MaterialApp(
@@ -38,10 +39,12 @@ class CoffeeApp extends StatelessWidget {
         initialRoute: '/menu_screen',
         routes: {
           '/menu_screen': (context) => const MenuScreen(),
-          '/brewing_screen': (context) => const BrewingScreen(),
+          '/brewing_screen': (context) => BlocProvider(
+                create: (_) => BrewingBloc()..add(LoadCoffeeImage()),
+                child: const BrewingScreen(),
+              ),
           '/favorites_screen': (context) => const FavoritedCoffeeScreen(),
         },
-        home: const MenuScreen(),
       ),
     );
   }

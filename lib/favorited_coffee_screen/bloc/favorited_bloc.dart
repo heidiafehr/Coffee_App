@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:coffee_app/random_coffee_image_repo/random_coffee_image_repo.dart';
 import 'package:coffee_app/service_locator.dart';
+import 'package:equatable/equatable.dart';
 
 part 'favorited_event.dart';
 
@@ -16,8 +17,6 @@ class FavoritedBloc extends Bloc<FavoritedEvent, FavoritedState> {
 
   Future<void> _fetchFavoriteImages(
       LoadFavoritedImages event, Emitter<FavoritedState> emit,) async {
-    emit(FavoritedImagesLoading());
-
     try {
       final favoritedImageCatalog =
           await api.fetchFavoritedImageCatalog();

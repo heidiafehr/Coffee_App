@@ -11,9 +11,6 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoritedBloc = context.read<FavoritedBloc>();
-    final brewingBloc = context.read<BrewingBloc>();
-
     return Scaffold(
       body: Center(
         child: Column(
@@ -70,12 +67,9 @@ class MenuScreen extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          brewingBloc.add(LoadCoffeeImage());
-                          Navigator.push(
+                          Navigator.pushNamed(
                             context,
-                            MaterialPageRoute<BrewingScreen>(
-                              builder: (context) => const BrewingScreen(),
-                            ),
+                            '/brewing_screen',
                           );
                         },
                         child: Text(
@@ -89,7 +83,9 @@ class MenuScreen extends StatelessWidget {
                       ElevatedButton(
                         style: Theme.of(context).elevatedButtonTheme.style,
                         onPressed: () {
-                          favoritedBloc.add(LoadFavoritedImages());
+                          context.read<FavoritedBloc>().add(
+                                LoadFavoritedImages(),
+                              );
                           Navigator.push(
                             context,
                             MaterialPageRoute<FavoritedCoffeeScreen>(
