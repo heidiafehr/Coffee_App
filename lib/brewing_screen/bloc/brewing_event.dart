@@ -4,8 +4,9 @@ abstract class BrewingEvent {}
 
 class LoadCoffeeImage extends BrewingEvent {}
 
-class AddCoffeeImageToFavorites extends BrewingEvent {
+class UpdateCoffeeImageToFavorites extends BrewingEvent {
+  UpdateCoffeeImageToFavorites(this.imageUrl, {required this.isFavorited});
 
-  AddCoffeeImageToFavorites(this.imageUrl);
   final String imageUrl;
+  final bool isFavorited;
 }

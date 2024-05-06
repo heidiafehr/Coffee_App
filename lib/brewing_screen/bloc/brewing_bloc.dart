@@ -3,18 +3,21 @@ import 'package:coffee_app/random_coffee_image_repo/random_coffee_image_repo.dar
 import 'package:coffee_app/service_locator.dart';
 
 part 'brewing_event.dart';
+
 part 'brewing_state.dart';
 
 class BrewingBloc extends Bloc<BrewingEvent, BrewingState> {
-
   BrewingBloc() : super(BrewingLoading()) {
     on<LoadCoffeeImage>(_fetchImage);
-    on<AddCoffeeImageToFavorites>(_addCoffeeImageToFavorites);
+    on<UpdateCoffeeImageToFavorites>(_addCoffeeImageToFavorites);
   }
+
   RandomCoffeeImageRepo api = getIt<RandomCoffeeImageRepo>();
 
   Future<void> _fetchImage(
-      LoadCoffeeImage event, Emitter<BrewingState> emit,) async {
+    LoadCoffeeImage event,
+    Emitter<BrewingState> emit,
+  ) async {
     emit(BrewingLoading());
     try {
       final image = await api.fetchCoffeeImage();
@@ -33,9 +36,15 @@ class BrewingBloc extends Bloc<BrewingEvent, BrewingState> {
   }
 
   Future<void> _addCoffeeImageToFavorites(
-      AddCoffeeImageToFavorites event, Emitter<BrewingState> emit,) async {
+    UpdateCoffeeImageToFavorites event,
+    Emitter<BrewingState> emit,
+  ) async {
     try {
-      await api.addFavoritedImage(event.imageUrl);
+      if(event.isFavorited) {
+        await api.addFavoritedImage(event.imageUrl);
+      } else {
+        await api.removeFavoritedImage(event.imageUrl);
+      }
     } catch (e) {
       emit(BrewingError('Failure to Add Image to Favorites: $e}'));
     }

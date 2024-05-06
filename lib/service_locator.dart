@@ -8,9 +8,5 @@ final getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
   getIt..registerSingleton<RandomCoffeeImageRepo>(RandomCoffeeImageRepo())
-  ..registerSingleton<BrewingBloc>(BrewingBloc())
-  ..registerSingleton<FavoritedBloc>(FavoritedBloc());
-
-  final prefs = await SharedPreferences.getInstance();
-  getIt.registerSingleton(prefs);
+  ..registerSingletonAsync(SharedPreferences.getInstance);
 }

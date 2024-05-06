@@ -20,7 +20,7 @@ class _BrewingScreenState extends State<BrewingScreen>
   late Animation<double> _opacityAnimation;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
@@ -60,7 +60,7 @@ class _BrewingScreenState extends State<BrewingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final brewingBloc = getIt<BrewingBloc>();
+    final brewingBloc = context.read<BrewingBloc>();
 
     return Scaffold(
       appBar: const CustomCoffeeAppBar(
@@ -75,7 +75,7 @@ class _BrewingScreenState extends State<BrewingScreen>
               child: BlocBuilder<BrewingBloc, BrewingState>(
                 builder: (context, state) {
                   if (state is BrewingLoading) {
-                    return const CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   } else if (state is BrewingLoaded) {
                     return Stack(
                       children: [
@@ -84,8 +84,8 @@ class _BrewingScreenState extends State<BrewingScreen>
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
                             imageUrl: state.imageUrl,
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(),
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
                             errorWidget: (context, url, error) =>
                                 const Icon(Icons.error),
                           ),
@@ -107,6 +107,7 @@ class _BrewingScreenState extends State<BrewingScreen>
                       ],
                     );
                   } else if (state is BrewingError) {
+                    // TODO Fix this :)
                     return Text('Error:; ${state.errorMessage}');
                   }
                   return const SizedBox.shrink();
@@ -128,30 +129,44 @@ class _BrewingScreenState extends State<BrewingScreen>
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
-                  onPressed: () async {
-                    final currentState = brewingBloc.state;
-                    if (currentState is BrewingLoaded && mounted) {
-                      brewingBloc.add(
-                          AddCoffeeImageToFavorites(currentState.imageUrl),);
-                      setState(
-                        () {
-                          isFavorited = true;
-                        },
-                      );
-                      await _controller.forward(from: 0);
-                      await Future.delayed(const Duration(seconds: 2), () {
-                        setState(() {
-                          isFavorited = false;
-                        });
-                      });
-                    }
-                  },
-                  child: const Icon(
-                    Icons.favorite,
-                    color: Colors.white,
-                    size: 25,
-                  ),
-                ),
+                    onPressed: () async {
+                      final currentState = brewingBloc.state;
+                      if (currentState is BrewingLoaded) {
+                        setState(
+                          () {
+                            isFavorited = !isFavorited;
+                          },
+                        );
+                        brewingBloc.add(
+                          UpdateCoffeeImageToFavorites(
+                            currentState.imageUrl,
+                            isFavorited: isFavorited,
+                          ),
+                        );
+                      }
+                    },
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 500),
+                      child: isFavorited
+                          ? const Icon(
+                              key: ValueKey<int>(1),
+                              Icons.favorite,
+                              color: Colors.red,
+                              size: 25,
+                            )
+                          : const Icon(
+                              key: ValueKey<int>(2),
+                              Icons.favorite,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                    )
+                    // const Icon(
+                    //   Icons.favorite,
+                    //   color: Colors.white,
+                    //   size: 25,
+                    // ),
+                    ),
               ],
             ),
           ],

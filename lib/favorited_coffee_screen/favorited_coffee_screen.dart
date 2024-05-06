@@ -9,7 +9,7 @@ class FavoritedCoffeeScreen extends StatefulWidget {
   const FavoritedCoffeeScreen({super.key});
 
   @override
-  _FavoritedCoffeeScreenState createState() => _FavoritedCoffeeScreenState();
+  State<FavoritedCoffeeScreen> createState() => _FavoritedCoffeeScreenState();
 }
 
 class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
@@ -34,7 +34,8 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
           } else if (state is FavoritedImagesLoaded) {
             displayedImageUrls = state.favoritedImageCatalog;
             return DisplayFavoritedImagesCatalog(
-                imageCatalog: displayedImageUrls,);
+              imageCatalog: displayedImageUrls,
+            );
           } else if (state is EmptyFavoritedImagesLoaded) {
             return const EmptyFavoritedCatalog();
           } else if (state is LoadFavoritedImagesError) {
@@ -42,7 +43,8 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
           } else if (state is UnfavoritedImageSuccess) {
             displayedImageUrls.remove(state.imageUrl);
             return DisplayFavoritedImagesCatalog(
-                imageCatalog: displayedImageUrls,);
+              imageCatalog: displayedImageUrls,
+            );
           } else {
             return const SizedBox.shrink();
           }

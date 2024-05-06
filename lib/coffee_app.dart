@@ -15,20 +15,21 @@ class CoffeeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: getIt<BrewingBloc>()..add(LoadCoffeeImage())),
-        BlocProvider.value(
-            value: getIt<FavoritedBloc>()..add(LoadFavoritedImages()),),
+        BlocProvider(create: (_) => BrewingBloc()..add(LoadCoffeeImage())),
+        BlocProvider(create: (_) => FavoritedBloc()..add(LoadFavoritedImages()),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(
           textTheme: TextTheme(
-              titleLarge: GoogleFonts.abrilFatface(
-                fontSize: 50,
-              ),
-              titleMedium: GoogleFonts.abrilFatface(
-                fontSize: 30,
-              ),
-              bodyMedium: GoogleFonts.courierPrime(fontSize: 15),),
+            titleLarge: GoogleFonts.abrilFatface(
+              fontSize: 50,
+            ),
+            titleMedium: GoogleFonts.abrilFatface(
+              fontSize: 30,
+            ),
+            bodyMedium: GoogleFonts.courierPrime(fontSize: 15),
+          ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
           ),

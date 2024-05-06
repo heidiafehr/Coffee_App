@@ -4,14 +4,15 @@ import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
 import 'package:coffee_app/favorited_coffee_screen/favorited_coffee_screen.dart';
 import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final favoritedBloc = getIt<FavoritedBloc>();
-    final brewingBloc = getIt<BrewingBloc>();
+    final favoritedBloc = context.read<FavoritedBloc>();
+    final brewingBloc = context.read<BrewingBloc>();
 
     return Scaffold(
       body: Center(
@@ -20,24 +21,27 @@ class MenuScreen extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height / 1.5,
               decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(200),
-                      bottomRight: Radius.circular(200),),),
+                color: Colors.black,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(200),
+                  bottomRight: Radius.circular(200),
+                ),
+              ),
               child: Stack(
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 40, left: 20, right: 20),
-                        child: Text(
-                          'THE BREWING APP',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(color: Colors.white),
-                        ),),
+                      padding:
+                          const EdgeInsets.only(top: 40, left: 20, right: 20),
+                      child: Text(
+                        'THE BREWING APP',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
                   ),
                   const Align(
                     alignment: Alignment.bottomCenter,
@@ -55,9 +59,10 @@ class MenuScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Text(
-                        // ignore: lines_longer_than_80_chars
-                        'Brew up some new blends of coffee images. If you find an image you adore, simply tap the favorite button.',
-                        style: Theme.of(context).textTheme.bodyMedium,),
+                      // ignore: lines_longer_than_80_chars
+                      'Brew up some new blends of coffee images. If you find an image you adore, simply tap the favorite button.',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -67,10 +72,11 @@ class MenuScreen extends StatelessWidget {
                         onPressed: () {
                           brewingBloc.add(LoadCoffeeImage());
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  // ignore: lines_longer_than_80_chars
-                                  builder: (context) => const BrewingScreen(),),);
+                            context,
+                            MaterialPageRoute<BrewingScreen>(
+                              builder: (context) => const BrewingScreen(),
+                            ),
+                          );
                         },
                         child: Text(
                           'Get Brewing',
@@ -86,9 +92,10 @@ class MenuScreen extends StatelessWidget {
                           favoritedBloc.add(LoadFavoritedImages());
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const FavoritedCoffeeScreen(),),
+                            MaterialPageRoute<FavoritedCoffeeScreen>(
+                              builder: (context) =>
+                                  const FavoritedCoffeeScreen(),
+                            ),
                           );
                         },
                         child: Text(

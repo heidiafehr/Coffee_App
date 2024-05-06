@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
 import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DisplayFavoritedImagesCatalog extends StatelessWidget {
 
@@ -10,7 +11,7 @@ class DisplayFavoritedImagesCatalog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoritedBloc = getIt<FavoritedBloc>();
+    final favoritedBloc = context.read<FavoritedBloc>();
 
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

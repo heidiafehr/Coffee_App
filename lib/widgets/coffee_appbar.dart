@@ -33,8 +33,12 @@ class CustomCoffeeAppBar extends StatelessWidget
         IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const MenuScreen()),);
+            Navigator.push(
+              context,
+              MaterialPageRoute<MenuScreen>(
+                builder: (context) => const MenuScreen(),
+              ),
+            );
           },
         ),
       ],
