@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DisplayFavoritedImagesCatalog extends StatelessWidget {
-
   const DisplayFavoritedImagesCatalog({required this.imageCatalog, super.key});
+
   final List<String> imageCatalog;
 
   @override
@@ -23,28 +23,31 @@ class DisplayFavoritedImagesCatalog extends StatelessWidget {
       itemBuilder: (context, index) {
         final imageUrl = imageCatalog[index];
 
-        return Stack(children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: CachedNetworkImage(
-              imageUrl: imageCatalog[index],
-              placeholder: (context, url) => const CircularProgressIndicator(),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              fit: BoxFit.cover,
+        return Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: 1,
+              child: CachedNetworkImage(
+                imageUrl: imageCatalog[index],
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Positioned(
-            bottom: 1,
-            right: 1,
-            child: IconButton(
-              icon: const Icon(Icons.favorite),
-              color: Colors.red,
-              onPressed: () {
-                favoritedBloc.add(UnfavoriteImage(imageUrl));
-              },
+            Positioned(
+              bottom: 1,
+              right: 1,
+              child: IconButton(
+                icon: const Icon(Icons.favorite),
+                color: Colors.red,
+                onPressed: () {
+                  favoritedBloc.add(UnfavoriteImage(imageUrl));
+                },
+              ),
             ),
-          ),
-        ],);
+          ],
+        );
       },
     );
   }

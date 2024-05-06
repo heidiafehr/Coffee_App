@@ -30,7 +30,7 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
       body: BlocBuilder<FavoritedBloc, FavoritedState>(
         builder: (context, state) {
           if (state is FavoritedImagesLoading) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (state is FavoritedImagesLoaded) {
             displayedImageUrls = state.favoritedImageCatalog;
             return DisplayFavoritedImagesCatalog(

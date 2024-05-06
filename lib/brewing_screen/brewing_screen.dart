@@ -14,7 +14,6 @@ class BrewingScreen extends StatefulWidget {
 
 class _BrewingScreenState extends State<BrewingScreen>
     with SingleTickerProviderStateMixin {
-  bool isFavorited = false;
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
@@ -39,16 +38,6 @@ class _BrewingScreenState extends State<BrewingScreen>
         parent: _controller,
         curve: const Interval(0.5, 1, curve: Curves.easeInOut),
       ),
-    );
-
-    _controller.addStatusListener(
-      (status) {
-        if (status == AnimationStatus.completed) {
-          setState(() {
-            isFavorited = false;
-          });
-        }
-      },
     );
   }
 
@@ -90,7 +79,7 @@ class _BrewingScreenState extends State<BrewingScreen>
                                 const Icon(Icons.error),
                           ),
                         ),
-                        if (isFavorited)
+                        if (state.isFavorited)
                           Center(
                             child: ScaleTransition(
                               scale: _scaleAnimation,
@@ -129,44 +118,38 @@ class _BrewingScreenState extends State<BrewingScreen>
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
-                    onPressed: () async {
-                      final currentState = brewingBloc.state;
-                      if (currentState is BrewingLoaded) {
-                        setState(
-                          () {
-                            isFavorited = !isFavorited;
-                          },
-                        );
-                        brewingBloc.add(
-                          UpdateCoffeeImageToFavorites(
-                            currentState.imageUrl,
-                            isFavorited: isFavorited,
-                          ),
-                        );
-                      }
-                    },
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 500),
-                      child: isFavorited
-                          ? const Icon(
-                              key: ValueKey<int>(1),
-                              Icons.favorite,
-                              color: Colors.red,
-                              size: 25,
-                            )
-                          : const Icon(
-                              key: ValueKey<int>(2),
-                              Icons.favorite,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                    )
-                    // const Icon(
-                    //   Icons.favorite,
-                    //   color: Colors.white,
-                    //   size: 25,
-                    // ),
-                    ),
+                  onPressed: () async {
+                    final currentState = brewingBloc.state;
+                    if (currentState is BrewingLoaded) {
+                      brewingBloc.add(
+                        UpdateCoffeeImageToFavorites(
+                          currentState.imageUrl,
+                          isFavorited: !currentState.isFavorited,
+                        ),
+                      );
+                    }
+                  },
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    child:
+                        context.watch<BrewingBloc>().state is BrewingLoaded &&
+                                (context.watch<BrewingBloc>().state
+                                        as BrewingLoaded)
+                                    .isFavorited
+                            ? const Icon(
+                                key: ValueKey<int>(1),
+                                Icons.favorite,
+                                color: Colors.red,
+                                size: 25,
+                              )
+                            : const Icon(
+                                key: ValueKey<int>(2),
+                                Icons.favorite,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                  ),
+                ),
               ],
             ),
           ],

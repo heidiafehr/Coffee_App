@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:coffee_app/random_coffee_image_repo/random_coffee_image_repo.dart';
 import 'package:coffee_app/service_locator.dart';
+import 'package:equatable/equatable.dart';
 
 part 'brewing_event.dart';
 
@@ -39,6 +40,7 @@ class BrewingBloc extends Bloc<BrewingEvent, BrewingState> {
     UpdateCoffeeImageToFavorites event,
     Emitter<BrewingState> emit,
   ) async {
+    emit(BrewingLoaded(event.imageUrl, isFavorited: event.isFavorited));
     try {
       if(event.isFavorited) {
         await api.addFavoritedImage(event.imageUrl);
