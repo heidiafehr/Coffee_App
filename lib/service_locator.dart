@@ -1,5 +1,3 @@
-import 'package:coffee_app/brewing_screen/bloc/brewing_bloc.dart';
-import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
 import 'package:coffee_app/random_coffee_image_repo/random_coffee_image_repo.dart';
 import 'package:coffee_app/random_coffee_image_repo/rest_instance_call.dart';
 import 'package:get_it/get_it.dart';

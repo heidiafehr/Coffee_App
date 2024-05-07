@@ -1,8 +1,5 @@
-import 'package:coffee_app/brewing_screen/bloc/brewing_bloc.dart';
-import 'package:coffee_app/brewing_screen/brewing_screen.dart';
 import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
 import 'package:coffee_app/favorited_coffee_screen/favorited_coffee_screen.dart';
-import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +29,7 @@ class MenuScreen extends StatelessWidget {
                       padding:
                           const EdgeInsets.only(top: 40, left: 20, right: 20),
                       child: Text(
-                        'THE BREWING APP',
+                        'The Brewing App',
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!

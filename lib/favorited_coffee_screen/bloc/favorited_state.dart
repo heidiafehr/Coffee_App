@@ -24,4 +24,3 @@ class LoadFavoritedImagesError extends FavoritedState {
   @override
   List<Object?> get props => [errorMessage];
 }
-

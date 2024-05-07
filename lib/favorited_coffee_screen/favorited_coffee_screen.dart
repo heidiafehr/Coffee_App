@@ -39,6 +39,11 @@ class _FavoritedCoffeeScreenState extends State<FavoritedCoffeeScreen> {
             return DisplayFavoritedImagesCatalog(
               imageCatalog: displayedImageUrls,
             );
+          } else if (state is LoadFavoritedImagesError) {
+            return Center(
+                child: Text(
+              'Error: ${state.errorMessage}',
+            ),);
           } else {
             return const SizedBox.shrink();
           }

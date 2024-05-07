@@ -3,11 +3,11 @@ import 'package:coffee_app/brewing_screen/brewing_screen.dart';
 import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
 import 'package:coffee_app/favorited_coffee_screen/favorited_coffee_screen.dart';
 import 'package:coffee_app/menu_screen/menu_screen.dart';
-import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+bool testMode = false;
 class CoffeeApp extends StatelessWidget {
   const CoffeeApp({super.key});
 

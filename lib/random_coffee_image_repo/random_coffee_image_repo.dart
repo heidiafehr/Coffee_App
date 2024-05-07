@@ -1,5 +1,3 @@
-import 'package:coffee_app/random_coffee_image_repo/coffee_image_class.dart';
-import 'package:coffee_app/random_coffee_image_repo/rest_instance_call.dart';
 import 'package:coffee_app/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffee_app/brewing_screen/bloc/brewing_bloc.dart';
-import 'package:coffee_app/service_locator.dart';
+import 'package:coffee_app/coffee_app.dart';
 import 'package:coffee_app/widgets/coffee_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,14 +70,16 @@ class _BrewingScreenState extends State<BrewingScreen>
                       children: [
                         AspectRatio(
                           aspectRatio: 1,
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: state.imageUrl,
-                            placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator()),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
+                          child: testMode
+                              ? const Placeholder()
+                              : CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                  imageUrl: state.imageUrl,
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(),),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                ),
                         ),
                         if (state.isFavorited)
                           Center(
@@ -96,8 +98,7 @@ class _BrewingScreenState extends State<BrewingScreen>
                       ],
                     );
                   } else if (state is BrewingError) {
-                    // TODO Fix this :)
-                    return Text('Error:; ${state.errorMessage}');
+                    return Text('Error: ${state.errorMessage}');
                   }
                   return const SizedBox.shrink();
                 },

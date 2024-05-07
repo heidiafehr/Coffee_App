@@ -1,4 +1,3 @@
-import 'package:coffee_app/menu_screen/menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomCoffeeAppBar extends StatelessWidget

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coffee_app/coffee_app.dart';
 import 'package:coffee_app/favorited_coffee_screen/bloc/favorited_bloc.dart';
-import 'package:coffee_app/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +27,7 @@ class DisplayFavoritedImagesCatalog extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 1,
-              child: CachedNetworkImage(
+              child: testMode ? const Placeholder() : CachedNetworkImage(
                 imageUrl: imageCatalog[index],
                 placeholder: (context, url) =>
                     const Center(child: CircularProgressIndicator()),

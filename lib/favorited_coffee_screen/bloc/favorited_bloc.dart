@@ -13,6 +13,7 @@ class FavoritedBloc extends Bloc<FavoritedEvent, FavoritedState> {
     on<LoadFavoritedImages>(_fetchFavoriteImages);
     on<UnfavoriteImage>(_unfavoriteImage);
   }
+
   RandomCoffeeImageRepo api = getIt<RandomCoffeeImageRepo>();
 
   Future<void> _fetchFavoriteImages(
